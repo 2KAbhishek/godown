@@ -53,3 +53,10 @@ func (download Download) Do() error {
 		return errors.New(fmt.Sprintf("Can't process, response is %v", resp.StatusCode))
 	}
 
+	size, err := strconv.Atoi(resp.Header.Get("Content-Length"))
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("Size is %v bytes.\n", size)
+
