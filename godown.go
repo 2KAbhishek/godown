@@ -96,3 +96,7 @@ func (download Download) Do() error {
 	}
 	// Waits until all sections have been downloaded
 	wg.Wait()
+        err = download.mergeSections(sections)
+        return nil
+    }
+
