@@ -96,9 +96,9 @@ func (download Download) Do() error {
 	}
 	// Waits until all sections have been downloaded
 	wg.Wait()
-        err = download.mergeSections(sections)
-        return nil
-    }
+	err = download.mergeSections(sections)
+	return nil
+}
 
 // Create a new request
 func (download Download) getNewRequest(method string) (*http.Request, error) {
@@ -134,3 +134,23 @@ func (download Download) downloadSection(i int, section [2]int) error {
 	return nil
 }
 
+func (download Download) mergeSections(sections [][2]int) error {
+	outFile, err := os.OpenFile(download.TargetPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	defer outFile.Close()
+	for i := range sections {
+		bytes, err := ioutil.ReadFile(fmt.Sprintf("%v.gdw", i))
+		if err != nil {
+			return err
+		}
+		totalBytes, err := outFile.Write(bytes)
+		if err != nil {
+			return err
+		}
+		os.Remove(fmt.Sprintf("%v.gdw", i))
+		fmt.Printf("%v bytes written\n", totalBytes)
+	}
+	return nil
+}
