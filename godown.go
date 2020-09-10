@@ -11,3 +11,10 @@ import (
 	"sync"
 	"time"
 )
+
+// Download type struct
+type Download struct {
+	Url           string
+	TargetPath    string
+	TotalSections int
+}
