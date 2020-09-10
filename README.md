@@ -8,7 +8,7 @@
 ![Contributors](https://img.shields.io/github/contributors/2kabhishek/godown?style=plastic&color=f0f&label=Contributors)
 ![License](https://img.shields.io/github/license/2kabhishek/godown?style=plastic&color=555&label=License)
 
-godown is a `<utility/tool/feature>` that allows `<insert_target_audience>` to do `<action/task_it_does>`.
+godown is a concurrent download manager written in go. 🌐⬇️🗃
 
 ## Prerequisites
 
