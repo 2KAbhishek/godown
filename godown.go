@@ -78,3 +78,21 @@ func (download Download) Do() error {
 		}
 	}
 
+	var wg sync.WaitGroup
+	for i, section := range sections {
+		// Increment waitgroup counter by 1
+		wg.Add(1)
+		// Capture the values because they will keep change
+		i := i
+		section := section
+		go func() {
+			// Waits for section to download, decrements counter by one
+			defer wg.Done()
+			err := download.downloadSection(i, section)
+			if err != nil {
+				panic(err)
+			}
+		}()
+	}
+	// Waits until all sections have been downloaded
+	wg.Wait()
