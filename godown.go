@@ -18,3 +18,13 @@ type Download struct {
 	TargetPath    string
 	TotalSections int
 }
+
+func main() {
+	startTime := time.Now()
+
+	download := Download{
+		Url:           os.Args[1],
+		TargetPath:    os.Args[2],
+		TotalSections: 10,
+	}
+
