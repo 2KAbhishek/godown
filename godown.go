@@ -35,3 +35,11 @@ func main() {
 	fmt.Printf("Download completed in %v seconds\n", time.Since(startTime).Seconds())
 }
 
+// Do the actual download
+func (download Download) Do() error {
+	fmt.Println("Making connection...")
+	req, err := download.getNewRequest("HEAD")
+	if err != nil {
+		return err
+	}
+
