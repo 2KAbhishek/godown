@@ -60,3 +60,21 @@ func (download Download) Do() error {
 
 	fmt.Printf("Size is %v bytes.\n", size)
 
+	// Make sections array with values for start and end of sections
+	// If file is 100 bytes and section size is 10 then [[0, 10][11, 20]...[91, 99]]
+	var sections = make([][2]int, download.TotalSections)
+	eachSize := size / download.TotalSections
+
+	for i := range sections {
+		if i == 0 {
+			sections[i][0] = 0
+		} else {
+			sections[i][0] = sections[i-1][1] + 1
+		}
+		if i < download.TotalSections-1 {
+			sections[i][1] = sections[i][0] + eachSize
+		} else {
+			sections[i][1] = size - 1
+		}
+	}
+
