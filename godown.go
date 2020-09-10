@@ -43,3 +43,13 @@ func (download Download) Do() error {
 		return err
 	}
 
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("Got %v\n", resp.StatusCode)
+	if resp.StatusCode > 299 {
+		return errors.New(fmt.Sprintf("Can't process, response is %v", resp.StatusCode))
+	}
+
