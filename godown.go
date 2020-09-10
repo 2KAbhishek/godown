@@ -109,3 +109,28 @@ func (download Download) getNewRequest(method string) (*http.Request, error) {
 	req.Header.Set("User-Agent", "Godown v 0.1")
 	return req, nil
 }
+
+// Download a section
+func (download Download) downloadSection(i int, section [2]int) error {
+	req, err := download.getNewRequest("GET")
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Range", fmt.Sprintf("bytes=%v-%v", section[0], section[1]))
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("Downloaded %v bytes for section %v : %v\n", resp.Header.Get("Content-Length"), i, section)
+
+	bytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+	err = ioutil.WriteFile(fmt.Sprintf("%v.gdw", i), bytes, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
