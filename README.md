@@ -14,7 +14,7 @@ godown is a concurrent download manager written in go. 🌐⬇️🗃
 
 Before you begin, ensure you have met the following requirements:
 
-- You have installed the latest version of `<coding_language/dependency/requirement_1>`
+- You have installed the latest version of `go`.
 
 ## Installing godown
 
@@ -23,14 +23,24 @@ To install godown, follow these steps:
 ```bash
 git clone https://github.com/2kabhishek/godown
 cd godown
-<install_command>
+
+# Without build
+go run ./godown.go $url $target
+
+# With build
+go build
+./godown.go $url $target
+
+# After Installing
+go install
+godown $url $target
 ```
 
 ## Using godown
 
 ```bash
 USAGE:
-    command [FLAGS] [OPTIONS]
+    godown [FLAGS] [OPTIONS]
 
 FLAGS:
     -h, --help              Prints help information.
@@ -39,10 +49,12 @@ OPTIONS:
     -o, --option <value>    Option description. Options are: a, b. [default: a]
 
 ```
+
 ### To-Do
 
-- [x] Setup repo
-- [ ] Think real hard
-- [ ] Start typing
+- [x] Create initial project
+- [ ] Add support for command line arguments
+- [ ] Better error reporting
+- [ ] Make it pretty
 
 ### More Info
