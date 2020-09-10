@@ -100,3 +100,12 @@ func (download Download) Do() error {
         return nil
     }
 
+// Create a new request
+func (download Download) getNewRequest(method string) (*http.Request, error) {
+	req, err := http.NewRequest(method, download.Url, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("User-Agent", "Godown v 0.1")
+	return req, nil
+}
