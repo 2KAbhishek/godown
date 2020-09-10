@@ -28,3 +28,10 @@ func main() {
 		TotalSections: 10,
 	}
 
+	err := download.Do()
+	if err != nil {
+		log.Fatalf("Error downloading file: %s\n", err)
+	}
+	fmt.Printf("Download completed in %v seconds\n", time.Since(startTime).Seconds())
+}
+
